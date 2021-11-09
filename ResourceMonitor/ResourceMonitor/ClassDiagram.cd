@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CAboutDlg" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceMonitor.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CMainFrame" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACBAAAAAAAAQACAAAiAAAgCAAAgAAAAAAAAAAABA=</HashCode>
+      <FileName>MainFrm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CResourceMonitorApp" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAgAAAAQAAAABAAAAAAA=</HashCode>
+      <FileName>ResourceMonitor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CResourceMonitorDoc" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAACCAAAgQAigWhgAAAAQAAAAAAAQAQ=</HashCode>
+      <FileName>ResourceMonitorDoc.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCPUMonitorView" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQABABAAAAAAGAAAgAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CPUMonitorView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CDiskMonitorView" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAGAAAgAAAAABAEAAAAAAAAAAAAAI=</HashCode>
+      <FileName>DiskMonitorView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CMemMonitorView" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAEAAGAAAgAAACABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MemMonitorView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CNetMonitorView" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAGAAEgAAAAABAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>NetMonitorView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CResourceMonitorView" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIAAAQAEQAFAAAACOQVAgEBAgAJAAgCAAkgIAAAAAQg=</HashCode>
+      <FileName>ResourceMonitorView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPerfData" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGJCAWADAAADAAAgAAYEAAIEBAAAAAgACBEAMAAA=</HashCode>
+      <FileName>PerfData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPerfDataManager" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAgQAAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAIAQA=</HashCode>
+      <FileName>PerfDataManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPerfDataOS" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAMAAAAEAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>PerfDataOS.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPerfDataPerProcess" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAgEAAAAAAAAAACQAABAEAKAAAAAgA=</HashCode>
+      <FileName>PerfDataPerProcess.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CLogger" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAgAAEEABAAQAAAAAAM=</HashCode>
+      <FileName>Logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CLogger_Base" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAABAAUAQgAIAAAAACDAAAAABAUAAHgCAgAAAgAE=</HashCode>
+      <FileName>Logger_Base.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="PerfDataInfo" Collapsed="true">
+    <Position X="10.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAACAAAIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PerfData.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DataObj" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>PerfData.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="OSDataObj" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAQAAAAAAAABAAAA=</HashCode>
+      <FileName>PerfDataOS.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PerProcessDataObj" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAASFAAAAAAAAAABAAAA=</HashCode>
+      <FileName>PerfDataPerProcess.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
