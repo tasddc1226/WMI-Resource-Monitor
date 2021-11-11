@@ -114,9 +114,6 @@ BOOL CResourceMonitorApp::InitInstance()
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
 
-	// 메모리 릭 확인
-	// _CrtSetBreakAlloc(291);
-	//_CrtMemDumpAllObjectsSince(0);
 
 	return TRUE;
 
