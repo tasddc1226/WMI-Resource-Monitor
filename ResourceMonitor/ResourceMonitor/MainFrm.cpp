@@ -174,7 +174,9 @@ void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
 			CFrameWnd::OnSysCommand(nID, lParam);
 		}
 		
-	} else {
+	}
+	else
+	{
 		// cancle event
 		// do nothing..
 		CFrameWnd::OnSysCommand(nID, lParam);

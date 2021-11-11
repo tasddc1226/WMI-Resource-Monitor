@@ -11,17 +11,15 @@ public:
 
 	void RefreshData();
 
-	CPerfDataPerProcess* m_win32PerfFormatProc;
+	CResourceMonitorDoc* m_pDoc;
 	CPerfData* m_win32DiskDrive;
+	CPerfDataPerProcess* m_win32PerfFormatProc;
 	CPerfDataOS* m_win32OperatingSystem;
 
-	CResourceMonitorDoc* m_pDoc;
 
 	//void UpdateData();
 	//void UpdatePerfProcData(DataObj& data);
 	//void UpdateDiskDriveData(DataObj& data);
-private:
-
 
 };
 
