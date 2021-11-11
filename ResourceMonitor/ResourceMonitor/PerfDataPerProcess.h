@@ -32,15 +32,20 @@ public:
 	CPerfDataPerProcess();
 	~CPerfDataPerProcess();
 	int GetNumberOfCores();
-public:
 
+	virtual void Init(const PerfDataInfo& info, CResourceMonitorDoc* doc);
+	virtual void SetDataObj(int index);
+	virtual void SetTableInstance();
+	virtual void ArrangeTable();
+public:
 	int nCores;
 	vector<ULONGLONG> exitedProcIDs;
 	double usingPercent;
 	double idlePercent;
 	map<ULONGLONG, PerProcessDataObj>	*m_table;
 
-	virtual void Init(const PerfDataInfo& info, CResourceMonitorDoc* doc);
-	virtual void GetData();
+
+
+
 };
 
