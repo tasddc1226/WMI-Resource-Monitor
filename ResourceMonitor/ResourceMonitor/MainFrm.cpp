@@ -105,12 +105,10 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	
-
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	if (nID == SC_CLOSE)
 	{
-		if (MessageBox(L"종료 하시겠습니까?", L"Resource Monitor EXIT", MB_YESNO) == IDYES)
+		if (MessageBox(L"Program Exit?", L"Resource Monitor EXIT", MB_YESNO) == IDYES)
 		{
 			// exit evnet
 			CResourceMonitorDoc* d = (CResourceMonitorDoc*)GetActiveDocument();
@@ -119,14 +117,21 @@ void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
 			d->m_isExit = TRUE; 
 
 			// m_table claer 후 erase
+			d->m_perfDataManager->m_win32PerfFormatProc->CleanUpOnce();
+			d->m_perfDataManager->m_win32PerfFormatProc->Cleanup();
 			d->m_perfDataManager->m_win32PerfFormatProc->m_table->clear();
 			d->m_perfDataManager->m_win32PerfFormatProc->m_table->erase(d->m_perfDataManager->m_win32PerfFormatProc->m_table->begin(), d->m_perfDataManager->m_win32PerfFormatProc->m_table->end());
+			delete d->m_perfDataManager->m_win32PerfFormatProc->dataObj;
 
+			d->m_perfDataManager->m_win32OperatingSystem->Cleanup();
 			d->m_perfDataManager->m_win32OperatingSystem->m_table->clear();
 			d->m_perfDataManager->m_win32OperatingSystem->m_table->erase(d->m_perfDataManager->m_win32OperatingSystem->m_table->begin(), d->m_perfDataManager->m_win32OperatingSystem->m_table->end());
+			delete d->m_perfDataManager->m_win32OperatingSystem->dataObj;
+	
 
 			// thread 종료
 			d->ExitThread();
+
 
 			// PerfDataManager 소멸자 호출
 			d->m_perfDataManager->~CPerfDataManager();
@@ -142,5 +147,6 @@ void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
 		// do nothing..
 		CFrameWnd::OnSysCommand(nID, lParam);
 	}
-	
+
+
 }
