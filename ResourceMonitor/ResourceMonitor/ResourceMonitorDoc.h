@@ -28,6 +28,9 @@ public:
 	CWinThread* m_loggerThread;
 	// Thread 종료 시 TRUE로 변경
 	BOOL m_isExit = FALSE;
+	int m_logInterval = LOG_INTERVAL;
+	float m_cpuThreshold = LOG_CPU_THRESHOLD;
+	int m_memThreshold = LOG_MEM_THRESHOLD;
 // 작업입니다.
 public:
 	// Thread 함수
@@ -65,6 +68,8 @@ protected:
 	// 검색 처리기에 대한 검색 콘텐츠를 설정하는 도우미 함수
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+
 };
 
 void AddLog(CLogger::LogDirectory nflag, LPCTSTR lpszFormat, ...);
