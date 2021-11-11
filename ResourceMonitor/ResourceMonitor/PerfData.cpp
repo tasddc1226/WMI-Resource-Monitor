@@ -10,11 +10,6 @@
 #include "ResourceMonitorView.h"
 #include <vector>
 #include <map>
-
-//#ifdef _DEBUG
-//#define new DEBUG_NEW
-//#endif
-
 #pragma comment(lib, "wbemuuid.lib")
 
 using namespace std;
@@ -30,6 +25,7 @@ CPerfData::~CPerfData()
 
 void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 {
+
 	className = info.className;
 	propertyNames = info.propertyNames;
 	m_nProps = info.propertyNames.size();
@@ -37,6 +33,7 @@ void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 	m_idIndex = info.idIndex;
 	isUnique = info.isUnique;
 	m_pDoc = doc;
+
 	if (FAILED(hr = CoInitializeEx(NULL, COINIT_MULTITHREADED)))
 	{
 		Cleanup();
@@ -52,9 +49,9 @@ void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 		RPC_C_IMP_LEVEL_IMPERSONATE,
 		NULL, EOAC_NONE, 0)))
 	{
-		Cleanup();
+		//Cleanup();
+		//return;
 	}
-
 	if (FAILED(hr = CoCreateInstance(
 		CLSID_WbemLocator,
 		NULL,
@@ -65,7 +62,6 @@ void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 		Cleanup();
 		return;
 	}
-
 	// Connect to the desired namespace.
 	bstrNameSpace = SysAllocString(L"\\\\.\\root\\cimv2");
 	if (NULL == bstrNameSpace)
@@ -74,6 +70,7 @@ void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 		Cleanup();
 		return;
 	}
+
 	if (FAILED(hr = pWbemLocator->ConnectServer(
 		bstrNameSpace,
 		NULL, // User name
@@ -87,6 +84,7 @@ void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 		Cleanup();
 		return;
 	}
+
 	pWbemLocator->Release();
 	pWbemLocator = NULL;
 	SysFreeString(bstrNameSpace);
@@ -102,6 +100,7 @@ void CPerfData::Init(const PerfDataInfo& info, CResourceMonitorDoc* doc)
 		Cleanup();
 		return;
 	}
+
 
 	if (FAILED(hr = pRefresher->QueryInterface(
 		IID_IWbemConfigureRefresher,
@@ -132,8 +131,6 @@ void CPerfData::AddEnumerator(LPCTSTR class_name)
 	pConfig = NULL;
 }
 
-
-
 void CPerfData::Refresh()
 {
 	dwNumReturned = 0;
@@ -143,7 +140,7 @@ void CPerfData::Refresh()
 	{
 		Cleanup();
 	}
-	
+
 
 	hr = pEnum->GetObjects(0L,
 		dwNumObjects,
@@ -180,85 +177,44 @@ void CPerfData::Refresh()
 			Cleanup();
 		}
 	}
-	
 }
-
-
 
 void CPerfData::GetData()
 {
-//	DataObj obj;
-//	obj.flag = true;
-//	while (true)
-//	{
-//		Refresh();
-//		for (unsigned int i = 0; i < dwNumReturned; i++)
-//		{
-//			for (int j = 0; j < m_nProps; ++j)
-//			{
-//				if (FAILED(hr = apEnumAccess[i]->Get(propertyNames[j],0,&propertyVal[j],0,0)))
-//				{
-//					Cleanup();
-//					break;
-//				}
-//				if (j != m_idIndex)
-//				{
-//					obj.vals.push_back(propertyVal[j]);
-//				}
-//			}
-//			//(*table)[propertyVal[m_idIndex].bstrVal] = obj;
-//			//(table->empty()) && 
-//			if (table->empty())
-//			{
-//				ULONGLONG ull = _wtoi64(propertyVal[m_idIndex].bstrVal);
-//				table->insert({ull , obj });		
-//			}
-//			else
-//			{
-//				if (!isUnique)
-//				{
-//					(*table)[propertyVal[m_idIndex].ullVal]=obj;
-//				}
-//				else
-//				{
-//					table->begin()->second = obj;
-//				}
-//			}
-//			obj.vals.clear();
-//			for (auto iter = propertyVal.begin(); iter < propertyVal.end(); iter++)
-//			{
-//				VariantClear(&(*iter));
-//			}
-//			//VariantClear(&propertyVal[j]);
-//			apEnumAccess[i]->Release();
-//			apEnumAccess[i] = NULL;
-//			
-//		}
-//
-//		if (NULL != apEnumAccess)
-//		{
-//			delete[] apEnumAccess;
-//			apEnumAccess = NULL;
-//		}
-//		for (auto iter = obj.vals.begin(); iter < obj.vals.end(); iter++)
-//		{
-//			VariantClear(&(*iter));
-//		}
-//		// Sleep for a second.
-//		Sleep(UPDATE_INTERVAL);
-//	}
-//	// Cleanup 과정 추가
-//	Cleanup();
+	dataObj->flag = true;
+	CPerfData::Refresh();
+
+	for (unsigned int i = 0; i < dwNumReturned; i++)
+	{
+		for (size_t j = 0; j < m_nProps; ++j)
+		{
+
+			if (FAILED(hr = apEnumAccess[i]->Get(propertyNames[j], 0, &propertyVal, 0, 0)))
+			{
+				Cleanup();
+				break;
+			}
+			SetDataObj(j);
+			VariantClear(&propertyVal);
+
+		}
+		SetTableInstance();
+		//clear obj & apEnumAccess
+		dataObj->Clear();
+		apEnumAccess[i]->Release();
+		apEnumAccess[i] = nullptr;
+	}
+	ArrangeTable();
+
+	if (nullptr != apEnumAccess)
+	{
+		delete[] apEnumAccess;
+		apEnumAccess = nullptr;
+	}
 }
 
 void CPerfData::Cleanup()
 {
-
-	if (NULL != bstrNameSpace)
-	{
-		SysFreeString(bstrNameSpace);
-	}
-
 	if (NULL != apEnumAccess)
 	{
 		for (unsigned int i = 0; i < dwNumReturned; i++)
@@ -270,14 +226,6 @@ void CPerfData::Cleanup()
 			}
 		}
 		delete[] apEnumAccess;
-	}
-	if (NULL != pWbemLocator)
-	{
-		pWbemLocator->Release();
-	}
-	if (NULL != pNameSpace)
-	{
-		pNameSpace->Release();
 	}
 	if (NULL != pEnum)
 	{
@@ -292,10 +240,27 @@ void CPerfData::Cleanup()
 		pRefresher->Release();
 	}
 
-	CoUninitialize();
+
 
 	if (FAILED(hr))
 	{
 		wprintf(L"Error status=%08x\n", hr);
 	}
+}
+
+void CPerfData::CleanUpOnce()
+{
+	if (NULL != bstrNameSpace)
+	{
+		SysFreeString(bstrNameSpace);
+	}
+	if (NULL != pWbemLocator)
+	{
+		pWbemLocator->Release();
+	}
+	if (NULL != pNameSpace)
+	{
+		pNameSpace->Release();
+	}
+	CoUninitialize();
 }
