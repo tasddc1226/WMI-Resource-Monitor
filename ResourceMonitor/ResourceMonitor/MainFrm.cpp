@@ -144,21 +144,23 @@ void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
 		{
 			// exit evnet
 			CResourceMonitorDoc* d = (CResourceMonitorDoc*)GetActiveDocument();
-			
 			// thread loop 탈출 조건 설정
 			d->m_isExit = TRUE; 
+			CPerfDataManager* dm = d->m_perfDataManager;
 
 			// m_table claer 후 erase
-			d->m_perfDataManager->m_win32PerfFormatProc->CleanUpOnce();
-			d->m_perfDataManager->m_win32PerfFormatProc->Cleanup();
-			d->m_perfDataManager->m_win32PerfFormatProc->m_table->clear();
-			d->m_perfDataManager->m_win32PerfFormatProc->m_table->erase(d->m_perfDataManager->m_win32PerfFormatProc->m_table->begin(), d->m_perfDataManager->m_win32PerfFormatProc->m_table->end());
-			delete d->m_perfDataManager->m_win32PerfFormatProc->dataObj;
+			dm->m_win32PerfFormatProc->CleanUpOnce();
+			dm->m_win32PerfFormatProc->Cleanup();
+			dm->m_win32PerfFormatProc->m_table->clear();
+			dm->m_win32PerfFormatProc->m_table->erase(dm->m_win32PerfFormatProc->m_table->begin(), dm->m_win32PerfFormatProc->m_table->end());
+			delete dm->m_win32PerfFormatProc->m_table;
+			delete dm->m_win32PerfFormatProc->dataObj;
 
-			d->m_perfDataManager->m_win32OperatingSystem->Cleanup();
-			d->m_perfDataManager->m_win32OperatingSystem->m_table->clear();
-			d->m_perfDataManager->m_win32OperatingSystem->m_table->erase(d->m_perfDataManager->m_win32OperatingSystem->m_table->begin(), d->m_perfDataManager->m_win32OperatingSystem->m_table->end());
-			delete d->m_perfDataManager->m_win32OperatingSystem->dataObj;
+			dm->m_win32OperatingSystem->Cleanup();
+			dm->m_win32OperatingSystem->m_table->clear();
+			dm->m_win32OperatingSystem->m_table->erase(dm->m_win32OperatingSystem->m_table->begin(), dm->m_win32OperatingSystem->m_table->end());
+			delete dm->m_win32OperatingSystem->m_table;
+			delete dm->m_win32OperatingSystem->dataObj;
 	
 
 			// thread 종료
@@ -170,15 +172,10 @@ void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
 
 			// CResourceMonitorDoc 소멸자 호출
 			d->~CResourceMonitorDoc();
-			AfxMessageBox(L"종료 성공");
 			CFrameWnd::OnSysCommand(nID, lParam);
 		}
-		
 	}
-	else
-	{
-		// cancle event
-		// do nothing..
+	else {
 		CFrameWnd::OnSysCommand(nID, lParam);
 	}
 

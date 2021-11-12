@@ -1,5 +1,5 @@
 #pragma once
-#define VERSION "v1.1.0"
+#define VERSION "v1.1.2"
 
 #define FRAME_WIDTH 60
 
